@@ -4,9 +4,9 @@ import { Link } from "@reach/router";
 export default function TopicCard(props) {
   const { slug, description, style, index } = props;
   return (
-    <div className={style ? `topicCardMin${index}` : "topicCard"}>
+    <li className={style ? `topicCardMin${index}` : "topicCard"}>
       <Link className="topicLink" to={`/topics/${slug}?`}>{`<${slug}>`}</Link>
       {!style && <p>{description}</p>}
-    </div>
+    </li>
   );
 }

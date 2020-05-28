@@ -3,10 +3,12 @@ import { Link } from "@reach/router";
 import * as api from "../api/api";
 import VoteButtons from "./VoteButtons";
 import moment from "moment";
+import ErrorAlert from "./ErrorAlert";
 
 export default class ArticleCard extends Component {
   state = {
     currentVote: 0,
+    err: "",
   };
 
   updateVote = (value, id, location) => {
@@ -15,7 +17,9 @@ export default class ArticleCard extends Component {
         currentVote: currentState.currentVote + value,
       };
     });
-    api.patchVote(id, value, location);
+    api.patchVote(id, value, location).catch((err) => {
+      this.setState({ err: err.response.data.message });
+    });
   };
 
   render() {
@@ -31,6 +35,8 @@ export default class ArticleCard extends Component {
       deleteComment,
       user,
     } = this.props;
+    if (this.state.err) return <ErrorAlert err={this.state.err} />;
+
     return (
       <article className="articleCard">
         {comment_id ? (

@@ -8,6 +8,18 @@ export const getArticleById = (article_id) => {
   });
 };
 
+export const getAllArticles = (topic, limit, sort_by, page, order) => {
+  return axios.get("https://be-nc-reddit-app.herokuapp.com/api/articles", {
+    params: {
+      topic: topic,
+      sort_by: sort_by,
+      order: order,
+      p: page,
+      limit: limit,
+    },
+  });
+};
+
 export const getCommentsByArticleId = (article_id) => {
   return axios
     .get(`${URL}/api/articles/${article_id}/comments`)
@@ -20,7 +32,6 @@ export const postCommentById = (messageBody, article_id) => {
   return axios
     .post(`${URL}/api/articles/${article_id}/comments`, messageBody)
     .then((res) => {
-      console.log(res.data);
       return res.data;
     });
 };

@@ -3,6 +3,7 @@ import ArticleCard from "./ArticleCard";
 import * as api from "../api/api";
 import CommentForm from "./CommentForm";
 import moment from "moment";
+import ErrorAlert from "./ErrorAlert";
 
 export default class ArticleCardById extends Component {
   state = {
@@ -10,6 +11,7 @@ export default class ArticleCardById extends Component {
     comments: [],
     isLoading: true,
     isSent: false,
+    err: "",
   };
 
   componentDidMount() {
@@ -18,34 +20,42 @@ export default class ArticleCardById extends Component {
 
   deleteComment = (e, comment_id, author) => {
     if (this.props.user === author) {
-      api.removeComment(comment_id).then((res) => {
-        this.setState((currentState) => {
-          return {
-            comments: currentState.comments.filter((comment) => {
-              return comment.comment_id !== comment_id;
-            }),
-          };
+      api
+        .removeComment(comment_id)
+        .then((res) => {
+          this.setState((currentState) => {
+            return {
+              comments: currentState.comments.filter((comment) => {
+                return comment.comment_id !== comment_id;
+              }),
+            };
+          });
+        })
+        .catch((err) => {
+          this.setState({ err: err.response.data.message, isLoading: false });
         });
-      });
     }
   };
 
   postComment = (comment) => {
-    const user = this.props.user;
-    const { article_id } = this.props;
+    const { article_id, user } = this.props;
     if (user) {
       const messageBody = { username: user, body: comment };
-      console.log(messageBody);
-      api.postCommentById(messageBody, article_id).then((res) => {
-        console.dir(res);
-        this.setState((currentState) => {
-          return {
-            comments: [res.comment, ...currentState.comments],
-          };
+      api
+        .postCommentById(messageBody, article_id)
+        .then((res) => {
+          console.dir(res);
+          this.setState((currentState) => {
+            return {
+              comments: [res.comment, ...currentState.comments],
+            };
+          });
+        })
+        .catch((err) => {
+          this.setState({ err: err.response.data.message, isLoading: false });
         });
-      });
     }
-  };
+  }; // route tested
 
   fetchArticleById() {
     const { article_id } = this.props;
@@ -53,11 +63,14 @@ export default class ArticleCardById extends Component {
       api.getArticleById(article_id),
       api.getCommentsByArticleId(article_id),
     ];
-
-    Promise.all(arrayPromises).then(([article, comments]) => {
-      this.setState({ article, comments });
-    });
-  }
+    Promise.all(arrayPromises)
+      .then(([article, comments]) => {
+        this.setState({ article, comments, isLoading: false });
+      })
+      .catch((err) => {
+        this.setState({ err: err.response.data.message, isLoading: false });
+      });
+  } // error tests passed
 
   render() {
     const {
@@ -69,18 +82,20 @@ export default class ArticleCardById extends Component {
       created_at,
       comment_count,
     } = this.state.article;
-
-    if (this.isLoading) return <h3>Loading...</h3>;
+    if (this.state.isLoading) return <h3>Loading...</h3>;
+    if (this.state.err) return <ErrorAlert err={this.state.err} />;
     return (
       <>
         <article className="articleCard">
           <h2>{title}</h2>
           {this.props.article_id && <p className="articleBody">{body}</p>}
-          <p className="alignLeft" >Votes: {votes}</p>
-          <p className="alignLeft" >Topic: {topic}</p>
-          <p className="alignLeft" >Author: {author}</p>
-          <p className="alignLeft" >Created: {moment(created_at).format("MMMM Do YYYY")}</p>
-          <p className="alignLeft" >Comments: {comment_count}</p>
+          <p className="alignLeft">Votes: {votes}</p>
+          <p className="alignLeft">Topic: {topic}</p>
+          <p className="alignLeft">Author: {author}</p>
+          <p className="alignLeft">
+            Created: {moment(created_at).format("MMMM Do YYYY")}
+          </p>
+          <p className="alignLeft">Comments: {comment_count}</p>
         </article>
         {this.props.user ? (
           <CommentForm postComment={this.postComment} />
@@ -89,19 +104,12 @@ export default class ArticleCardById extends Component {
         )}
         {this.state.comments.map((comment) => {
           return (
-      
             <ArticleCard
-
               key={comment.comment_id}
-
               {...comment}
-
               deleteComment={this.deleteComment}
-
               user={this.props.user}
-
             />
-
           );
         })}
       </>

@@ -1,11 +1,11 @@
 import React, { Component } from "react";
 import * as api from "../api/api";
-//import axios from "axios";
 
 export default class LoginForm extends Component {
   state = {
     username: "",
     invalidUser: false,
+    err: "",
   };
 
   updateUserName = (e) => {
@@ -15,32 +15,36 @@ export default class LoginForm extends Component {
   handleSubmit = async (e) => {
     e.preventDefault();
     const { username } = this.state;
+    const { loginUser, navigate } = this.props;
     api
       .getUserByUsername(username)
       .then((user) => {
-        this.props.loginUser(user.username);
-        this.props.navigate("/");
+        loginUser(user.username);
+        navigate("/");
       })
       .catch((err) => {
         this.setState({ invalidUser: true });
       });
-  };
+  }; // error handled
 
   render() {
+    const { username } = this.state;
     return (
       <form onSubmit={this.handleSubmit} className="loginForm">
         {this.state.invalidUser ? (
-          <h3 className="warning">Please enter a valid username</h3>
+          <h3 className="warning">
+            Please enter a valid username Hint "jessjelly"
+          </h3>
         ) : (
           <h3 className="loginHeader">Please Login!!</h3>
         )}
 
         <label className="loginTextContainer">
           <input
-          className="inputLoginBox"
+            className="inputLoginBox"
             type="text"
             onChange={this.updateUserName}
-            value={this.state.username}
+            value={username}
           />
         </label>
         <button className="loginSubmitButton">Submit</button>

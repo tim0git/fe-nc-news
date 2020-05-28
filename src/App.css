@@ -41,7 +41,8 @@
   grid-template-areas:
     "a a a a"
     "b c d e"
-    "f f f f";
+    "f f f f"
+    "j j j j";
   padding: 0.5rem;
 }
 
@@ -97,8 +98,23 @@
   grid-area: e;
 }
 
-.ulArticleList {
+.paginationContainer{
+  margin: 0.5rem;
   grid-area: f;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.pagButton{
+  margin: .5rem;
+  background: none;
+  border: 0;
+}
+
+
+.ulArticleList {
+  grid-area: j;
 }
 
 .articleCard {
@@ -321,7 +337,7 @@ h1 {
   grid-area: a;
 }
 
-.commentSubmitButton{
+.commentSubmitButton {
   border-radius: 5rem;
   border: 1px solid black;
   font-weight: 600;
@@ -332,7 +348,7 @@ h1 {
   grid-area: c;
 }
 
-.commentResetButton{
+.commentResetButton {
   min-width: 4.5rem;
   border-radius: 5rem;
   border: 1px solid black;
@@ -344,7 +360,7 @@ h1 {
   grid-area: e;
 }
 
-.commentInput{
+.commentInput {
   border: 2px solid rgb(16, 137, 161);
   text-align: center;
   margin: 0.5rem;

@@ -1,8 +1,10 @@
 import React, { Component } from "react";
+import ErrorAlert from "./ErrorAlert";
 
 export default class CommentForm extends Component {
   state = {
     comment: "",
+    err: "",
   };
 
   onChange = (e) => {
@@ -19,16 +21,18 @@ export default class CommentForm extends Component {
   };
 
   render() {
+    const { err, comment } = this.state;
+    if (err) return <ErrorAlert err={err} />;
     return (
       <form onSubmit={this.onHandleSubmit} className="commentFormContainer">
         <label className="inputCommentContainer">
           <input
-          className="commentInput"
+            className="commentInput"
             onChange={this.onChange}
             type="text"
             name="Comment"
             id="comment"
-            value={this.state.comment}
+            value={comment}
             placeholder="Write your comment here..."
           />
         </label>
