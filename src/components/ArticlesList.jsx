@@ -21,24 +21,6 @@ export default class ArticlesList extends Component {
 
   componentDidMount() {
     this.fetchArticles();
-    this.setTotalArticles();
-  }
-
-  setTotalArticles() {
-    const { topic } = this.props;
-    const limit = 40;
-    api
-      .getAllArticles(topic, limit)
-      .then(({ data }) => {
-        const pageLimit = Math.ceil(data.articles.length / 10);
-
-        this.setState({
-          maxPage: pageLimit,
-        });
-      })
-      .catch((err) => {
-        this.setState({ err: err.response.data.message, isLoading: false });
-      });
   }
 
   fetchArticles() {
@@ -49,8 +31,10 @@ export default class ArticlesList extends Component {
     api
       .getAllArticles(topic, limit, sort_by, page, order)
       .then(({ data }) => {
+        let pageLimit = Math.ceil(data.total_count / 10);
         this.setState({
           articles: data.articles,
+          maxPage: pageLimit,
           isLoading: false,
         });
       })
