@@ -20,9 +20,10 @@ export default class CommentForm extends Component {
 
   render() {
     return (
-      <form onSubmit={this.onHandleSubmit}>
-        <label>
+      <form onSubmit={this.onHandleSubmit} className="commentFormContainer">
+        <label className="inputCommentContainer">
           <input
+          className="commentInput"
             onChange={this.onChange}
             type="text"
             name="Comment"
@@ -31,8 +32,10 @@ export default class CommentForm extends Component {
             placeholder="Write your comment here..."
           />
         </label>
-        <button>Submit</button>
-        <button type="reset">Clear</button>
+        <button className="commentSubmitButton">Submit</button>
+        <button className="commentResetButton" type="reset">
+          Clear
+        </button>
       </form>
     );
   }

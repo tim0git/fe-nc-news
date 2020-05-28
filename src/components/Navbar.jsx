@@ -1,14 +1,49 @@
 import React from "react";
 import { Link } from "@reach/router";
 
-export default function Navbar() {
+export default function Navbar({ logOut, user }) {
   return (
     <>
-      <h2>Navbar</h2>
-      <ul>
-        <Link to="/">Home</Link>
-        <Link to="/topics">Topics</Link>
-      </ul>
+      <nav className="navContainer">
+        <label className="menuButton">
+          <Link
+            className="fas fa-home fa-2x"
+            style={{ color: "inherit", textDecoration: "inherit" }}
+            to="/"
+          ></Link>
+          <p>Home</p>
+        </label>
+        <label className="menuButton">
+          <Link
+            to="/topics"
+            className="far fa-newspaper fa-2x"
+            style={{ color: "inherit", textDecoration: "inherit" }}
+          ></Link>
+          <p>Topics</p>
+        </label>
+        <label className="menuButton">
+          {user ? (
+            <label>
+              <Link
+                to="/login"
+                className="fas fa-user fa-2x"
+                style={{ color: "inherit", textDecoration: "inherit" }}
+              ></Link>
+              <p>Login</p>
+            </label>
+          ) : (
+            <label className="menuButton">
+              <Link
+                to="/login"
+                onClick={logOut}
+                className="fas fa-sign-out-alt fa-2x"
+                style={{ color: "inherit", textDecoration: "inherit" }}
+              ></Link>
+              <p>Logout</p>
+            </label>
+          )}
+        </label>
+      </nav>
     </>
   );
 }

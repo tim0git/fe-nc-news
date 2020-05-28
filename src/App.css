@@ -3,11 +3,361 @@
 }
 
 * {
-  padding: 0.15rem;
+  padding: 0rem;
   margin: 0;
   text-decoration: none;
 }
 
+.headerContainer {
+  padding: 0.5rem;
+  background-color: rgb(57, 61, 66);
+  color: white;
+  margin: 0;
+  border-bottom: 4px solid rgb(44, 156, 178);
+}
+
+.navContainer {
+  margin-top: 1rem;
+  padding: 1rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.menuButton {
+  margin-bottom: 0rem;
+  text-decoration: none;
+  color: rgb(57, 61, 66);
+}
+
+.menuButton:hover {
+  color: rgb(36, 126, 160);
+}
+
+.articlesContainer {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: auto;
+  grid-template-areas:
+    "a a a a"
+    "b c d e"
+    "f f f f";
+  padding: 0.5rem;
+}
+
+.articleHeader {
+  padding-bottom: 1rem;
+  grid-area: a;
+}
+
+.commentsIcon {
+  background: none;
+  border: 0;
+  grid-area: b;
+}
+.commentsIcon:hover {
+  background: none;
+  border: 0;
+  color: rgb(36, 126, 160);
+}
+
+.votesIcon:hover {
+  background: none;
+  border: 0;
+  color: rgb(36, 126, 160);
+}
+
+.votesIcon {
+  background: none;
+  border: 0;
+  grid-area: c;
+}
+
+.dateIcon:hover {
+  background: none;
+  border: 0;
+  color: rgb(36, 126, 160);
+}
+
+.dateIcon {
+  background: none;
+  border: 0;
+  grid-area: d;
+}
+
+.orderIcon:hover {
+  background: none;
+  border: 0;
+  color: rgb(36, 126, 160);
+}
+
+.orderIcon {
+  background: none;
+  border: 0;
+  grid-area: e;
+}
+
+.ulArticleList {
+  grid-area: f;
+}
+
 .articleCard {
-  border: 1px solid gray;
+  padding: 1rem;
+  margin: 0.5em;
+  border-bottom: 2px dotted rgb(16, 137, 161);
+}
+/*< ---       Sign In Form     --- >*/
+.loginForm {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.loginHeader {
+  padding: 1rem;
+  margin: 1rem;
+  background-color: rgb(57, 61, 66);
+  max-width: 60%;
+  align-self: center;
+  color: white;
+}
+
+.loginTextContainer {
+  align-self: center;
+  margin: 1rem;
+  border: 2px solid rgb(16, 137, 161);
+}
+
+.inputLoginBox {
+  border: none;
+  background: none;
+  text-align: center;
+  padding: 0rem;
+  align-self: center;
+  -webkit-transition: width 2s ease-out;
+  transition: width 2s ease-out;
+}
+
+.inputLoginBox:focus {
+  padding: 0.75rem 2rem;
+}
+
+.loginSubmitButton {
+  font-weight: 600;
+  border: 0;
+  border-radius: 0.25rem;
+  color: white;
+  font-family: system-ui, sans-serif;
+  font-size: 1rem;
+  line-height: 1.2;
+  white-space: nowrap;
+  text-decoration: none;
+  padding: 0.75rem 1.75rem;
+  margin: 0.25rem;
+  cursor: pointer;
+  align-self: center;
+  max-width: 60%;
+  background-color: rgb(44, 156, 178);
+}
+
+.loginSubmitButton:active {
+  font-weight: 600;
+  border: 0;
+  border-radius: 0.25rem;
+  color: white;
+  font-family: system-ui, sans-serif;
+  font-size: 1rem;
+  line-height: 1.2;
+  white-space: nowrap;
+  text-decoration: none;
+  padding: 0.75rem 1.75rem;
+  margin: 0.25rem;
+  cursor: pointer;
+  align-self: center;
+  max-width: 60%;
+  background-color: goldenrod;
+}
+
+.warning {
+  margin: 1rem;
+  padding: 1rem;
+  align-self: center;
+  background-color: rgb(210, 30, 54);
+  color: white;
+  border: 0;
+  border-radius: 0;
+  max-width: 60%;
+}
+
+/*< ---          Topics        --- >*/
+
+.topicListContainer {
+  display: flex;
+  flex-direction: column;
+  align-content: space-around;
+}
+
+.topicListContainerMin {
+  padding: 2rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+
+.topicCardMin0 {
+  transform: rotateY(0deg) rotate(-35deg); /* needs Y at 0 deg to behave properly*/
+  font-size: x-small;
+  color: white;
+  list-style: none;
+  padding: 0.2rem;
+  margin: 0.2rem;
+  border-radius: 1rem;
+  background-color: rgb(57, 61, 66);
+  -webkit-box-shadow: 0px 8px 30px 2px rgba(38, 140, 163, 1);
+  -moz-box-shadow: 0px 8px 30px 2px rgba(38, 140, 163, 1);
+  box-shadow: 0px 8px 30px 2px rgba(38, 140, 163, 1);
+}
+
+.topicCardMin1 {
+  transform: rotateY(0deg) rotate(-35deg); /* needs Y at 0 deg to behave properly*/
+  font-size: x-small;
+  color: white;
+  list-style: none;
+  padding: 0.2rem;
+  margin: 0.2rem;
+  border-radius: 1rem;
+  background-color: rgb(57, 61, 66);
+  -webkit-box-shadow: 0px 8px 30px 2px rgba(38, 140, 163, 1);
+  -moz-box-shadow: 0px 8px 30px 2px rgba(38, 140, 163, 1);
+  box-shadow: 0px 8px 30px 2px rgba(38, 140, 163, 1);
+}
+
+.topicCardMin2 {
+  transform: rotateY(0deg) rotate(-35deg); /* needs Y at 0 deg to behave properly*/
+  font-size: x-small;
+  color: white;
+  list-style: none;
+  padding: 0.2rem;
+  margin: 0.2rem;
+  border-radius: 1rem;
+  background-color: rgb(57, 61, 66);
+  -webkit-box-shadow: 0px 8px 30px 2px rgba(38, 140, 163, 1);
+  -moz-box-shadow: 0px 8px 30px 2px rgba(38, 140, 163, 1);
+  box-shadow: 0px 8px 30px 2px rgba(38, 140, 163, 1);
+}
+
+.topicCard {
+  color: white;
+  list-style: none;
+  padding: 2rem;
+  margin: 3rem;
+  border-radius: 1rem;
+  background-color: rgb(57, 61, 66);
+  -webkit-box-shadow: 0px 8px 30px 2px rgba(38, 140, 163, 1);
+  -moz-box-shadow: 0px 8px 30px 2px rgba(38, 140, 163, 1);
+  box-shadow: 0px 8px 30px 2px rgba(38, 140, 163, 1);
+}
+
+.topicLink {
+  color: white;
+  font-size: 1.5rem;
+}
+
+.articleBody {
+  margin: 1rem;
+  text-align: justify;
+}
+
+/*<------  Comments ------->*/
+
+.commentBody {
+  margin: 0.5rem;
+  text-align: justify;
+  font-style: italic;
+}
+
+.alignLeft {
+  text-align: left;
+  margin-left: 10%;
+}
+
+.voteUp {
+  border-radius: 5rem;
+  border: 1px solid black;
+  font-weight: 600;
+  font-style: normal;
+  margin: 1rem;
+  padding: 1rem;
+  background: none;
+}
+
+.deleteButton {
+  border-radius: 5rem;
+  border: 1px solid black;
+  font-weight: 600;
+  font-style: normal;
+  margin: 1rem;
+  padding: 1rem;
+  background: none;
+}
+.voteUp:active {
+  background: goldenrod;
+}
+
+.voteDown {
+  border-radius: 5rem;
+  border: 1px solid black;
+  font-style: normal;
+  margin: 1rem;
+  padding: 1rem;
+  background: none;
+}
+
+h1 {
+  color: white;
+}
+
+.inputCommentContainer {
+  grid-area: a;
+}
+
+.commentSubmitButton{
+  border-radius: 5rem;
+  border: 1px solid black;
+  font-weight: 600;
+  font-style: normal;
+  margin: 1rem;
+  padding: 1rem;
+  background: none;
+  grid-area: c;
+}
+
+.commentResetButton{
+  min-width: 4.5rem;
+  border-radius: 5rem;
+  border: 1px solid black;
+  font-weight: 600;
+  font-style: normal;
+  margin: 1rem;
+  padding: 1rem;
+  background: none;
+  grid-area: e;
+}
+
+.commentInput{
+  border: 2px solid rgb(16, 137, 161);
+  text-align: center;
+  margin: 0.5rem;
+  height: 3rem;
+  width: 80%;
+  background: none;
+}
+
+.commentFormContainer {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-auto-rows: auto;
+  grid-template-areas:
+    "a a a a a"
+    "b c d e f";
 }

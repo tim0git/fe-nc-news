@@ -1,11 +1,12 @@
 import React from "react";
 import { Link } from "@reach/router";
 
-export default function TopicCard({ slug, description }) {
+export default function TopicCard(props) {
+  const { slug, description, style, index } = props;
   return (
-    <div>
-      <Link to={`/topics/${slug}`}>{slug}</Link>
-      <p>{description}</p>
+    <div className={style ? `topicCardMin${index}` : "topicCard"}>
+      <Link className="topicLink" to={`/topics/${slug}?`}>{`<${slug}>`}</Link>
+      {!style && <p>{description}</p>}
     </div>
   );
 }

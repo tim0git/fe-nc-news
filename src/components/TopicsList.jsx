@@ -18,9 +18,20 @@ export default class TopicsList extends Component {
     return (
       <>
         <section>
-          <ul>
-            {this.state.topics.map((topic) => {
-              return <TopicCard key={topic.slug} {...topic} />;
+          <ul
+            className={
+              this.props.topic ? "topicListContainerMin" : "topicListContainer"
+            }
+          >
+            {this.state.topics.map((topic, index) => {
+              return (
+                <TopicCard
+                  index={index}
+                  key={topic.slug}
+                  {...topic}
+                  style={this.props.topic ? true : false}
+                />
+              );
             })}
           </ul>
         </section>

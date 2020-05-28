@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import ArticleCard from "./ArticleCard";
 import axios from "axios";
 
+
 export default class ArticlesList extends Component {
   state = {
     articles: [
@@ -45,11 +46,32 @@ export default class ArticlesList extends Component {
     isLoading: true,
     sort_by: "created_at",
     orderBool: false,
+    voteBool: false,
+    currentVote: 0,
   };
 
   componentDidMount() {
     this.fetchArticles();
   }
+
+  updateVote = (e, id) => {
+    console.log(id);
+    let voteInc = 0;
+    this.state.voteBool ? (voteInc = -1) : (voteInc = 1);
+
+    this.setState((currentState) => {
+      return {
+        voteBool: !currentState.voteBool,
+        currentVote: currentState.currentVote + voteInc,
+      };
+    });
+    console.log(voteInc, this.state.voteBool);
+
+    // api.patchVote(id, voteInc).then((res) => {
+    //   console.dir(res);
+    // });
+    console.log("article updateVote");
+  };
 
   componentDidUpdate(prevProps, prevState) {
     if (prevProps.topic !== this.props.topic) {
@@ -80,21 +102,44 @@ export default class ArticlesList extends Component {
   render() {
     if (this.state.isLoading) return <h3>Loading...</h3>;
     return (
-      <main>
-        <h1>article</h1>
-        <button name="comment_count" onClick={(e) => this.setSortBy(e)}>
-          Sort By Comments
-        </button>
-        <button name="votes" onClick={(e) => this.setSortBy(e)}>
-          Sort By Votes
-        </button>
-        <button name="created_at" onClick={(e) => this.setSortBy(e)}>
-          Sort By Date
-        </button>
-        <button onClick={this.setOrderBy}>Order Desc/Asc</button>
+      <main className="articlesContainer">
+        <h2 className="articleHeader">Articles...</h2>
+        <label className="commentsIcon">
+          <button
+            style={{ color: "none", textDecoration: "none" }}
+            className="far fa-comments fa-2x commentsIcon"
+            name="comment_count"
+            onClick={(e) => this.setSortBy(e)}
+          ></button>
+          <p>Comments</p>
+        </label>
+        <label className="votesIcon">
+          <button
+            className="far fa-star fa-2x votesIcon"
+            name="votes"
+            onClick={(e) => this.setSortBy(e)}
+          ></button>
+          <p>Votes</p>
+        </label>
+        <label className="dateIcon">
+          <button
+            className="far fa-calendar-alt fa-2x dateIcon"
+            name="created_at"
+            onClick={(e) => this.setSortBy(e)}
+          ></button>
+          <p>Date</p>
+        </label>
+        <label className="orderIcon">{this.state.orderBool ? this.orderDesc : this.orderAsc}</label>
         <ul className="ulArticleList">
           {this.state.articles.map((article) => {
-            return <ArticleCard key={article.article_id} {...article} />;
+            return (
+              <ArticleCard
+                key={article.article_id}
+                {...article}
+                updateVote={this.updateVote}
+                currentVote={this.state.currentVote}
+              />
+            );
           })}
         </ul>
       </main>
@@ -119,4 +164,23 @@ export default class ArticlesList extends Component {
         });
       });
   }
+  orderDesc = (
+    <>
+      <button
+        className="fas fa-sort-amount-down-alt fa-2x orderIcon"
+        onClick={this.setOrderBy}
+      ></button>
+      <p>Desc</p>
+    </>
+  );
+
+  orderAsc = (
+    <>
+      <button
+        className="fas fa-sort-amount-up-alt fa-2x orderIcon"
+        onClick={this.setOrderBy}
+      ></button>
+      <p>Asc</p>
+    </>
+  );
 }
