@@ -98,7 +98,7 @@
   grid-area: e;
 }
 
-.paginationContainer{
+.paginationContainer {
   margin: 0.5rem;
   grid-area: f;
   display: flex;
@@ -106,12 +106,11 @@
   justify-content: space-around;
 }
 
-.pagButton{
-  margin: .5rem;
+.pagButton {
+  margin: 0.5rem;
   background: none;
   border: 0;
 }
-
 
 .ulArticleList {
   grid-area: j;
@@ -192,6 +191,13 @@
   align-self: center;
   max-width: 60%;
   background-color: goldenrod;
+}
+.alertContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  padding: 0rem;
+  margin: 0rem;
 }
 
 .warning {

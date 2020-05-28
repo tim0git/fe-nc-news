@@ -14,10 +14,14 @@ export default class CommentForm extends Component {
   onHandleSubmit = (e) => {
     e.preventDefault();
     const comment = this.state.comment;
-    this.props.postComment(comment);
-    this.setState({
-      comment: "",
-    });
+    if (comment.length < 15) {
+      this.setState({ err: "comments must be at least 15 characters long" });
+    } else {
+      this.props.postComment(comment);
+      this.setState({
+        comment: "",
+      });
+    }
   };
 
   render() {
