@@ -55,22 +55,14 @@ export default class ArticlesList extends Component {
   }
 
   updateVote = (e, id) => {
-    console.log(id);
     let voteInc = 0;
     this.state.voteBool ? (voteInc = -1) : (voteInc = 1);
-
     this.setState((currentState) => {
       return {
         voteBool: !currentState.voteBool,
         currentVote: currentState.currentVote + voteInc,
       };
     });
-    console.log(voteInc, this.state.voteBool);
-
-    // api.patchVote(id, voteInc).then((res) => {
-    //   console.dir(res);
-    // });
-    console.log("article updateVote");
   };
 
   componentDidUpdate(prevProps, prevState) {

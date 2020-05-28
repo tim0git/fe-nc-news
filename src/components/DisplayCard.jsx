@@ -79,7 +79,7 @@ export default class ArticleCardById extends Component {
           <p className="alignLeft" >Votes: {votes}</p>
           <p className="alignLeft" >Topic: {topic}</p>
           <p className="alignLeft" >Author: {author}</p>
-          <p className="alignLeft" >Created: {moment(Date(created_at)).format("MMMM Do YYYY")}</p>
+          <p className="alignLeft" >Created: {moment(created_at).format("MMMM Do YYYY")}</p>
           <p className="alignLeft" >Comments: {comment_count}</p>
         </article>
         {this.props.user ? (
@@ -89,12 +89,19 @@ export default class ArticleCardById extends Component {
         )}
         {this.state.comments.map((comment) => {
           return (
+      
             <ArticleCard
+
               key={comment.comment_id}
+
               {...comment}
+
               deleteComment={this.deleteComment}
+
               user={this.props.user}
+
             />
+
           );
         })}
       </>

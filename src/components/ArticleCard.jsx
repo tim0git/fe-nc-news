@@ -15,9 +15,7 @@ export default class ArticleCard extends Component {
         currentVote: currentState.currentVote + value,
       };
     });
-    api.patchVote(id, value, location).then((res) => {
-      console.dir(res);
-    });
+    api.patchVote(id, value, location);
   };
 
   render() {
@@ -41,10 +39,12 @@ export default class ArticleCard extends Component {
           <Link to={`/article/${article_id}`}>{title}</Link>
         )}
         {comment_id && <p className="commentBody">{body}</p>}
-        <p className="alignLeft" >Votes: {votes + this.state.currentVote}</p>
-        <p className="alignLeft" >Topic: {topic}</p>
-        <p className="alignLeft" >Author: {author}</p>
-        <p className="alignLeft" >Created: {moment(Date(created_at)).format('MMMM Do YYYY')}</p>
+        <p className="alignLeft">Votes: {votes + this.state.currentVote}</p>
+        {!comment_id && <p className="alignLeft">Topic: {topic}</p>}
+        <p className="alignLeft">Author: {author}</p>
+        <p className="alignLeft">
+          Created: {moment(created_at).format("MMMM Do YYYY")}
+        </p>
         <VoteButtons
           {...this.props}
           updateVote={this.updateVote}
