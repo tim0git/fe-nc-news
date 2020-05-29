@@ -8,7 +8,6 @@ import * as api from "../api/api";
 export default class ArticlesList extends Component {
   state = {
     articles: [],
-    topic: "",
     isLoading: true,
     sort_by: "created_at",
     orderBool: false,
@@ -50,6 +49,14 @@ export default class ArticlesList extends Component {
     }
     if (prevState.page !== this.state.page) {
       this.setState({ isLoading: true });
+      this.fetchArticles(this.props.topic);
+    }
+    if (prevState.sort_by !== this.state.sort_by) {
+      this.setState({ isLoading: true, page: 1 });
+      this.fetchArticles(this.props.topic);
+    }
+    if (prevProps.topic !== this.props.topic) {
+      this.setState({ isLoading: true, page: 1 });
       this.fetchArticles(this.props.topic);
     }
   }
