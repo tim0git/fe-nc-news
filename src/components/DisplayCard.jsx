@@ -1,118 +1,70 @@
 import React, { Component } from "react";
-import ArticleCard from "./ArticleCard";
+import { Link } from "@reach/router";
 import * as api from "../api/api";
-import CommentForm from "./CommentForm";
+import VoteButtons from "./VoteButtons";
 import moment from "moment";
 import ErrorAlert from "./ErrorAlert";
 
-export default class ArticleCardById extends Component {
+export default class ArticleCard extends Component {
   state = {
-    article: {},
-    comments: [],
-    isLoading: true,
-    isSent: false,
+    currentVote: 0,
     err: "",
   };
 
-  componentDidMount() {
-    this.fetchArticleById();
-  }
-
-  deleteComment = (e, comment_id, author) => {
-    if (this.props.user === author) {
-      api
-        .removeComment(comment_id)
-        .then((res) => {
-          this.setState((currentState) => {
-            return {
-              comments: currentState.comments.filter((comment) => {
-                return comment.comment_id !== comment_id;
-              }),
-            };
-          });
-        })
-        .catch((err) => {
-          this.setState({ err: err.response.data.message, isLoading: false });
-        });
-    }
+  updateVote = (value, id, location) => {
+    this.setState((currentState) => {
+      return {
+        currentVote: currentState.currentVote + value,
+      };
+    });
+    api.patchVote(id, value, location).catch((err) => {
+      this.setState({ err: err.response.data.message });
+    });
   };
-
-  postComment = (comment) => {
-    const { article_id, user } = this.props;
-    if (user) {
-      const messageBody = { username: user, body: comment };
-      api
-        .postCommentById(messageBody, article_id)
-        .then((res) => {
-          console.dir(res);
-          this.setState((currentState) => {
-            return {
-              comments: [res.comment, ...currentState.comments],
-            };
-          });
-        })
-        .catch((err) => {
-          this.setState({ err: err.response.data.message, isLoading: false });
-        });
-    }
-  }; // route tested
-
-  fetchArticleById() {
-    const { article_id } = this.props;
-    const arrayPromises = [
-      api.getArticleById(article_id),
-      api.getCommentsByArticleId(article_id),
-    ];
-    Promise.all(arrayPromises)
-      .then(([article, comments]) => {
-        this.setState({ article, comments, isLoading: false });
-      })
-      .catch((err) => {
-        this.setState({ err: err.response.data.message, isLoading: false });
-      });
-  } // error tests passed
 
   render() {
     const {
+      article_id,
       title,
       body,
       votes,
       topic,
       author,
       created_at,
-      comment_count,
-    } = this.state.article;
-    if (this.state.isLoading) return <h3>Loading...</h3>;
+      comment_id,
+      deleteComment,
+      user,
+    } = this.props;
     if (this.state.err) return <ErrorAlert err={this.state.err} />;
+
     return (
-      <>
-        <article className="articleCard">
-          <h2>{title}</h2>
-          {this.props.article_id && <p className="articleBody">{body}</p>}
-          <p className="alignLeft">Votes: {votes}</p>
-          <p className="alignLeft">Topic: {topic}</p>
-          <p className="alignLeft">Author: {author}</p>
-          <p className="alignLeft">
-            Created: {moment(created_at).format("MMMM Do YYYY")}
-          </p>
-          <p className="alignLeft">Comments: {comment_count}</p>
-        </article>
-        {this.props.user ? (
-          <CommentForm postComment={this.postComment} />
+      <article className="articleCard">
+        {comment_id ? (
+          <h4>{title}</h4>
         ) : (
-          <h4>Login to comment...</h4>
+          <Link to={`/article/${article_id}`}>{title}</Link>
         )}
-        {this.state.comments.map((comment) => {
-          return (
-            <ArticleCard
-              key={comment.comment_id}
-              {...comment}
-              deleteComment={this.deleteComment}
-              user={this.props.user}
-            />
-          );
-        })}
-      </>
+        {comment_id && <p className="commentBody">{body}</p>}
+        <p className="alignLeft">Votes: {votes + this.state.currentVote}</p>
+        {!comment_id && <p className="alignLeft">Topic: {topic}</p>}
+        <p className="alignLeft">Author: {author}</p>
+        <p className="alignLeft">
+          Created: {moment(created_at).format("MMMM Do YYYY")}
+        </p>
+        <VoteButtons
+          {...this.props}
+          updateVote={this.updateVote}
+          currentVote={this.state.currentVote}
+        />
+        {comment_id && user === author && (
+          <button
+            className="fas fa-trash-alt fa-1x deleteButton"
+            onClick={(e) => deleteComment(e, comment_id, author)}
+          >
+            Delete
+          </button>
+        )}
+      </article>
     );
   }
 }

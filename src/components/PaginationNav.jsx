@@ -11,6 +11,9 @@ export default function PaginationNav({ setPage, page, maxPage }) {
         ></button>
         <p>Prev Page</p>
       </label>
+      <label className="pagNoContainer">
+        <p>page: {page}</p>
+      </label>
       <label>
         <button
           disabled={page >= maxPage}

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import ArticleCard from "./ArticleCard";
+import ArticleCard from "./DisplayCard";
 import ErrorAlert from "./ErrorAlert";
 import ArticlesNav from "./ArticlesNav";
 import PaginationNav from "./PaginationNav";
@@ -43,19 +43,13 @@ export default class ArticlesList extends Component {
   } // error handled
 
   componentDidUpdate(prevProps, prevState) {
-    if (prevProps.topic !== this.props.topic) {
-      this.setState({ isLoading: true });
-      this.fetchArticles(this.props.topic);
-    }
+    const topicChange = prevProps.topic !== this.props.topic;
+    const sort_byChange = prevState.sort_by !== this.state.sort_by;
     if (prevState.page !== this.state.page) {
       this.setState({ isLoading: true });
       this.fetchArticles(this.props.topic);
     }
-    if (prevState.sort_by !== this.state.sort_by) {
-      this.setState({ isLoading: true, page: 1 });
-      this.fetchArticles(this.props.topic);
-    }
-    if (prevProps.topic !== this.props.topic) {
+    if (topicChange || sort_byChange) {
       this.setState({ isLoading: true, page: 1 });
       this.fetchArticles(this.props.topic);
     }
@@ -94,6 +88,7 @@ export default class ArticlesList extends Component {
     return (
       <main className="articlesContainer">
         <h2 className="articleHeader">Articles...</h2>
+        <h5 className="sortHeader" >sort by...</h5>
         <ArticlesNav
           orderBool={this.state.orderBool}
           setOrderBy={this.setOrderBy}

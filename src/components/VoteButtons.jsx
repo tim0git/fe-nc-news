@@ -7,7 +7,7 @@ export default function VoteButtons({
   currentVote,
 }) {
   return (
-    <div>
+    <>
       <label>
         <button
           className="fas fa-star-half-alt fa-1x voteDown"
@@ -38,6 +38,6 @@ export default function VoteButtons({
           Vote up
         </button>
       </label>
-    </div>
+    </>
   );
 }

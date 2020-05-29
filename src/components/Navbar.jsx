@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "@reach/router";
 
-export default function Navbar({ logOut, user }) {
+export default function Navbar({ logOut, isLoggedIn }) {
   return (
     <>
       <nav className="navContainer">
@@ -22,7 +22,7 @@ export default function Navbar({ logOut, user }) {
           <p>Topics</p>
         </label>
         <label className="menuButton">
-          {user ? (
+          {isLoggedIn ? (
             <label>
               <Link
                 to="/login"

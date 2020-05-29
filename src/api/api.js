@@ -43,7 +43,6 @@ export const removeComment = (comment_id) => {
 };
 
 export const patchVote = (id, voteInc, location) => {
-  console.log(voteInc);
   return axios
     .patch(`${URL}/api/${location}/${id}`, { inc_votes: voteInc })
     .then(({ data }) => {
