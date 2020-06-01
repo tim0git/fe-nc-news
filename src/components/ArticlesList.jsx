@@ -45,33 +45,27 @@ export default class ArticlesList extends Component {
   componentDidUpdate(prevProps, prevState) {
     const topicChange = prevProps.topic !== this.props.topic;
     const sort_byChange = prevState.sort_by !== this.state.sort_by;
+    const orderByChange = prevState.orderBool !== this.state.orderBool;
     if (prevState.page !== this.state.page) {
       this.setState({ isLoading: true });
       this.fetchArticles(this.props.topic);
     }
-    if (topicChange || sort_byChange) {
+    if (topicChange || sort_byChange || orderByChange) {
       this.setState({ isLoading: true, page: 1 });
       this.fetchArticles(this.props.topic);
     }
   }
 
   setOrderBy = () => {
-    this.setState(
-      (currentState) => {
-        return {
-          orderBool: !currentState.orderBool,
-        };
-      },
-      () => {
-        this.fetchArticles();
-      }
-    );
+    this.setState((currentState) => {
+      return {
+        orderBool: !currentState.orderBool,
+      };
+    });
   };
 
   setSortBy = (e) => {
-    this.setState({ sort_by: e.target.name }, () => {
-      this.fetchArticles();
-    });
+    this.setState({ sort_by: e.target.name });
   };
 
   setPage = (pageValue) => {
@@ -87,8 +81,12 @@ export default class ArticlesList extends Component {
     if (this.state.err) return <ErrorAlert err={this.state.err} />;
     return (
       <main className="articlesContainer">
-        <h2 className="articleHeader">Articles...</h2>
-        <h5 className="sortHeader" >sort by...</h5>
+        {this.props.topic ? (
+          <h2 className="articleHeader">Articles by topic</h2>
+        ) : (
+          <h2 className="articleHeader">Articles...</h2>
+        )}
+        <h5 className="sortHeader">sort by...</h5>
         <ArticlesNav
           orderBool={this.state.orderBool}
           setOrderBy={this.setOrderBy}

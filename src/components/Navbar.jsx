@@ -15,7 +15,7 @@ export default function Navbar({ logOut, isLoggedIn }) {
         </label>
         <label className="menuButton">
           <Link
-            to="/topics"
+            to="/topics/football"
             className="far fa-newspaper fa-2x"
             style={{ color: "inherit", textDecoration: "inherit" }}
           ></Link>

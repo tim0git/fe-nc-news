@@ -42,7 +42,7 @@ export default class ArticleCard extends Component {
         {comment_id ? (
           <h4>{title}</h4>
         ) : (
-          <Link to={`/article/${article_id}`}>{title}</Link>
+          <Link className="articleTitle" to={`/article/${article_id}`}>{title}</Link>
         )}
         {comment_id && <p className="commentBody">{body}</p>}
         <p className="alignLeft">Votes: {votes + this.state.currentVote}</p>

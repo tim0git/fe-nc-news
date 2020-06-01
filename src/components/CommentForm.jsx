@@ -24,6 +24,11 @@ export default class CommentForm extends Component {
     }
   };
 
+  clearForm = (e) => {
+    e.preventDefault();
+    this.setState({ comment: "" });
+  };
+
   render() {
     const { err, comment } = this.state;
     if (err) return <ErrorAlert err={err} />;
@@ -41,7 +46,11 @@ export default class CommentForm extends Component {
           />
         </label>
         <button className="commentSubmitButton">Submit</button>
-        <button className="commentResetButton" type="reset">
+        <button
+          className="commentResetButton"
+          onClick={(e) => this.clearForm(e)}
+          type="reset"
+        >
           Clear
         </button>
       </form>

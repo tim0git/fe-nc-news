@@ -11,7 +11,7 @@ import ErrorAlert from "./components/ErrorAlert";
 
 export default class App extends Component {
   state = {
-    user: "",
+    user: "jessjelly",
   };
 
   loginUser = (username) => {
@@ -31,7 +31,6 @@ export default class App extends Component {
           logOut={this.logOut}
         />
         <Router>
-          <TopicsList path="/topics" />
           <TopicsList path="/topics/:topic" />
           <ArticlesList path="/" />
           <ArticleCardById path="/article/:article_id" user={this.state.user} />

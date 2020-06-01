@@ -47,9 +47,10 @@
   padding: 0.5rem;
 }
 .sortHeader {
+  font-size: 1.3rem;
   grid-area: z;
   color: rgb(57, 61, 66);
-  padding-bottom: 0.25rem;
+  padding-bottom: 0.75rem;
 }
 
 .articleHeader {
@@ -238,7 +239,6 @@
 }
 
 .topicCardMin0 {
-  transform: rotateY(0deg) rotate(-35deg); /* needs Y at 0 deg to behave properly*/
   font-size: x-small;
   color: white;
   list-style: none;
@@ -252,7 +252,6 @@
 }
 
 .topicCardMin1 {
-  transform: rotateY(0deg) rotate(-35deg); /* needs Y at 0 deg to behave properly*/
   font-size: x-small;
   color: white;
   list-style: none;
@@ -266,7 +265,6 @@
 }
 
 .topicCardMin2 {
-  transform: rotateY(0deg) rotate(-35deg); /* needs Y at 0 deg to behave properly*/
   font-size: x-small;
   color: white;
   list-style: none;
@@ -321,20 +319,18 @@
   font-style: normal;
   margin: 1rem;
   padding: 1rem;
-  background: none;
+  background-color: #5cb85c;
 }
 
 .deleteButton {
   border-radius: 5rem;
   border: 1px solid black;
-  font-weight: 600;
+  font-weight: 800;
   font-style: normal;
   margin: 1rem;
   padding: 1rem;
-  background: none;
-}
-.voteUp:active {
-  background: goldenrod;
+
+  background-color: #d9534f;
 }
 
 .voteDown {
@@ -343,7 +339,16 @@
   font-style: normal;
   margin: 1rem;
   padding: 1rem;
-  background: none;
+  color: white;
+  background-color: #292b2c;
+}
+
+.voteDown:active {
+  background-color: #316b88;
+}
+
+.voteUp:active {
+  background-color: #a5f39e;
 }
 
 h1 {
@@ -393,4 +398,9 @@ h1 {
   grid-template-areas:
     "a a a a a"
     "b c d e f";
+}
+
+.articleTitle {
+  font-weight: 800;
+  color: #292b2c;
 }

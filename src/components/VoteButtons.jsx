@@ -10,21 +10,6 @@ export default function VoteButtons({
     <>
       <label>
         <button
-          className="fas fa-star-half-alt fa-1x voteDown"
-          disabled={!(currentVote > -1) ? true : false}
-          onClick={(e) =>
-            updateVote(
-              -1,
-              comment_id || article_id,
-              comment_id ? "comments" : "articles"
-            )
-          }
-        >
-          Vote Down
-        </button>
-      </label>
-      <label>
-        <button
           className="far fa-star fa-1x VoteUp"
           disabled={!(currentVote < 1) ? true : false}
           onClick={(e) =>
@@ -36,6 +21,21 @@ export default function VoteButtons({
           }
         >
           Vote up
+        </button>
+      </label>
+      <label>
+        <button
+          className="fas fa-star-half-alt fa-1x voteDown"
+          disabled={!(currentVote > -1) ? true : false}
+          onClick={(e) =>
+            updateVote(
+              -1,
+              comment_id || article_id,
+              comment_id ? "comments" : "articles"
+            )
+          }
+        >
+          Vote Down
         </button>
       </label>
     </>
